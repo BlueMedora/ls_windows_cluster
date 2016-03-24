@@ -5,3 +5,6 @@ license 'all_rights'
 description 'Installs/Configures ls_windows_cluster'
 long_description 'Installs/Configures ls_windows_cluster'
 version '0.1.0'
+
+depends 'windows'
+
