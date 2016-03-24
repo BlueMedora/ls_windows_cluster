@@ -28,7 +28,7 @@ if node['windows-cluster']['cluster_role'] == 'creator'
 
   powershell_script 'Build-Cluster' do
     code <<-EOH
-      New-Cluster -Name #{node['windows-cluster']['cluster_name']} -Node $env:COMPUTENAME -StaticAddress #{node['windows-cluster']['cluster_ip_address']} -NoStorage -Force    
+      New-Cluster -Name #{node['windows-cluster']['cluster_name']} -Node $env:COMPUTENAME -StaticAddress #{node['windows-cluster']['cluster_ip_address']} -NoStorage -Force
     EOH
     guard_interpreter :powershell_script
     only_if <<-EOH
