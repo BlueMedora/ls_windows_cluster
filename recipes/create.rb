@@ -26,8 +26,6 @@ windows_feature 'RSAT-Clustering-CmdInterface' do
 end
 
 # Build Cluster if it doesn't exist
-
-<<<<<<< HEAD
 if node['ls_windows_cluster']['cluster_role'] == 'creator' 
   powershell_script 'Build-Cluster' do
     code <<-EOH
