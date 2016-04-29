@@ -4,19 +4,31 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+<<<<<<< HEAD
 windows_feature "Failover-Clustering" do
+=======
+windows_feature 'Failover-Clustering' do
+>>>>>>> 4e1621a0ffee8cbfe1b352772fda64a9b0e86c1c
   action :install
   all true
   provider :windows_feature_powershell
 end
 
+<<<<<<< HEAD
 windows_feature "RSAT-Clustering" do
+=======
+windows_feature 'RSAT-Clustering' do
+>>>>>>> 4e1621a0ffee8cbfe1b352772fda64a9b0e86c1c
   action :install
   all true
   provider :windows_feature_powershell
 end
 
+<<<<<<< HEAD
 windows_feature "RSAT-Clustering-CmdInterface" do
+=======
+windows_feature 'RSAT-Clustering-CmdInterface' do
+>>>>>>> 4e1621a0ffee8cbfe1b352772fda64a9b0e86c1c
   action :install
   all true
   provider :windows_feature_powershell
@@ -24,6 +36,7 @@ end
 
 # Build Cluster if it doesn't exist
 
+<<<<<<< HEAD
 if node['ls_windows_cluster']['cluster_role'] == 'creator' 
   powershell_script 'Build-Cluster' do
     code <<-EOH
@@ -68,10 +81,22 @@ if node['ls_windows_cluster']['cluster_role'] == 'replica'
     guard_interpreter :powershell_script
     only_if <<-EOH
       (Get-ClusterAccess | where {$_.IdentityReference -like "*$env:COMPUTERNAME*"}).Count -eq 0
+=======
+if node['windows-cluster']['cluster_role'] == 'creator'
+
+  powershell_script 'Build-Cluster' do
+    code <<-EOH
+      New-Cluster -Name #{node['windows-cluster']['cluster_name']} -Node $env:COMPUTENAME -StaticAddress #{node['windows-cluster']['cluster_ip_address']} -NoStorage -Force
+    EOH
+    guard_interpreter :powershell_script
+    only_if <<-EOH
+      (Get-Cluster -Name #{node['windows-cluster']['cluster_name']} -Domain ((Get-WmiObject Win32_ComputerSystem).Domain)).Count -eq 0
+>>>>>>> 4e1621a0ffee8cbfe1b352772fda64a9b0e86c1c
     EOH
   end
 end
 
+<<<<<<< HEAD
 # Set Host record time to live to 300 seconds
 powershell_script 'Set-HostRecordTTL' do
   code <<-EOH
@@ -93,3 +118,5 @@ powershell_script 'Set-PublishPTRRecords' do
     (Get-ClusterResource "Cluster Name" | Get-ClusterParameter | where {$_.Name -eq "PublishPTRRecords"}).Value -eq 1
   EOH
 end 
+=======
+>>>>>>> 4e1621a0ffee8cbfe1b352772fda64a9b0e86c1c
