@@ -29,7 +29,7 @@ end
 if node['ls_windows_cluster']['cluster_role'] == 'creator' 
   powershell_script 'Build-Cluster' do
     code <<-EOH
-      New-Cluster -Name "#{node['ls_windows_cluster']['cluster_name']}" -Node $env:COMPUTERNAME -StaticAddress #{node['ls_windows_cluster']['cluster_ip_address']} -NoStorage -Force    
+      New-Cluster -Name "#{node['ls_windows_cluster']['cluster_name']}" -Node $env:COMPUTERNAME -StaticAddress #{node['ls_windows_cluster']['cluster_ip_address']} -NoStorage -Force
     EOH
     guard_interpreter :powershell_script
     only_if <<-EOH
@@ -65,7 +65,7 @@ if node['ls_windows_cluster']['cluster_role'] == 'replica'
   powershell_script 'Grant node cluster access' do
     code <<-EOH
       $nodeName = $env:USERDNSDOMAIN + "\" + $env:COMPUTERNAME + "$"
-      Grant-ClusterAccess $nodeName -Full      
+      Grant-ClusterAccess $nodeName -Full
     EOH
     guard_interpreter :powershell_script
     only_if <<-EOH
