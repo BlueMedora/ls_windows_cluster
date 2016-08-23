@@ -1,12 +1,12 @@
 #
-# Cookbook Name:: ls_windows_cluster
+# Cookbook Name:: wsfc
 # Spec:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'ls_windows_cluster::default' do
+describe 'wsfc::default' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new

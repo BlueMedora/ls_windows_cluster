@@ -1,3 +1,3 @@
-default['ls_windows_cluster']['cluster_name'] = "testCluster"
-default['ls_windows_cluster']['cluster_ip_address'] = '10.0.3.231'
-default['ls_windows_cluster']['cluster_role'] = "creator"
+default['wsfc']['cluster_name'] = "testCluster"
+default['wsfc']['cluster_ip_address'] = '10.0.3.231'
+default['wsfc']['cluster_role'] = "creator"

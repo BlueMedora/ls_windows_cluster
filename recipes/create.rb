@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ls_windows_cluster
+# Cookbook Name:: wsfc
 # Recipe:: create
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
@@ -26,24 +26,24 @@ windows_feature 'RSAT-Clustering-CmdInterface' do
 end
 
 # Build Cluster if it doesn't exist
-if node['ls_windows_cluster']['cluster_role'] == 'creator' 
+if node['wsfc']['cluster_role'] == 'creator' 
   powershell_script 'Build-Cluster' do
     code <<-EOH
-      New-Cluster -Name "#{node['ls_windows_cluster']['cluster_name']}" -Node $env:COMPUTERNAME -StaticAddress #{node['ls_windows_cluster']['cluster_ip_address']} -NoStorage -Force
+      New-Cluster -Name "#{node['wsfc']['cluster_name']}" -Node $env:COMPUTERNAME -StaticAddress #{node['wsfc']['cluster_ip_address']} -NoStorage -Force
     EOH
     guard_interpreter :powershell_script
     only_if <<-EOH
-      (Get-Cluster -Name "#{node['ls_windows_cluster']['cluster_name']}" -Domain ((Get-WmiObject Win32_ComputerSystem).Domain)).Count -eq 0
+      (Get-Cluster -Name "#{node['wsfc']['cluster_name']}" -Domain ((Get-WmiObject Win32_ComputerSystem).Domain)).Count -eq 0
     EOH
   end
 end
 
 # Add node to cluster if it is a replica
-if node['ls_windows_cluster']['cluster_role'] == 'replica'
+if node['wsfc']['cluster_role'] == 'replica'
   powershell_script 'Wait-Cluster' do
     code <<-EOH
         try{
-            Add-ClusterNode $env:COMPUTERNAME -Cluster "#{node['ls_windows_cluster']['cluster_name']}" -NoStorage
+            Add-ClusterNode $env:COMPUTERNAME -Cluster "#{node['wsfc']['cluster_name']}" -NoStorage
         }
         catch{}
     EOH
@@ -51,7 +51,7 @@ if node['ls_windows_cluster']['cluster_role'] == 'replica'
     only_if <<-EOH
       $node = $true
       try{
-          $list = Get-ClusterNode -Cluster #{node['ls_windows_cluster']['cluster_name']}
+          $list = Get-ClusterNode -Cluster #{node['wsfc']['cluster_name']}
           foreach($n in $list){
               if($n.Name -eq $env:COMPUTERNAME){
                   $node = $false

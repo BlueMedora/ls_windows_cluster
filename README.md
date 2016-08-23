@@ -1,4 +1,7 @@
-# ls_windows_cluster
+# wsfc
 
-TODO: Enter the cookbook description here.
+The Windows Server Failover Cluster (WSFC) cookbook installs and configures
+the failover cluster role in Windows Server.
+
+It does this via PowerShell.
 
