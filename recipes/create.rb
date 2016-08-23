@@ -12,14 +12,14 @@ windows_feature 'Failover-Clustering' do
 end
 
 
-windows_feature 'RSAT-Clustering' do
+windows_feature 'RSAT-Clustering-Mgmt' do
   action :install
   all true
   provider :windows_feature_powershell
 end
 
 
-windows_feature 'RSAT-Clustering-CmdInterface' do
+windows_feature 'RSAT-Clustering-PowerShell' do
   action :install
   all true
   provider :windows_feature_powershell
