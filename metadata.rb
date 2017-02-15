@@ -1,4 +1,4 @@
-name 'wsfc'
+name 'windows-cluster'
 maintainer 'EngOps'
 maintainer_email 'engops@bluemedora.com'
 license 'all_rights'
